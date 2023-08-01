@@ -1,7 +1,7 @@
-site_name: <package-name>
+site_name: google-ads-report
 # site_url: http://www.jieyu.ai
-repo_url: https://github.com/<github-username>/<package-name>
-repo_name: <package-name>
+repo_url: https://github.com/ikameglobal/google-ads-report
+repo_name: google-ads-report
 #strict: true
 nav:
     -   Home: index.md
@@ -57,14 +57,14 @@ plugins:
             lang: en
     -   mkdocstrings:
             watch:
-                - <package-name-underscore>
+                - google_ads_report
 extra:
     social:
         -   icon: fontawesome/brands/github
-            link: https://github.com/<github-username>
+            link: https://github.com/ikameglobal
             name: Github
         -   icon: material/email
-            link: "mailto:<email>"
+            link: "mailto:minhpc@ikameglobal.com"
     # to enable disqus, uncomment the following and put your disqus id below
     # disqus: disqus_id
     # uncomment the following and put your google tracking id below to enable GA

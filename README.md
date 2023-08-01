@@ -1,6 +1,13 @@
-# Python Library Template
+# google-ads-report
 
-Steps to use this template:
+[![release](https://img.shields.io/pypi/v/google-ads-report.svg)](https://pypi.org/project/google-ads-report/)
+[![docs](https://img.shields.io/website/https/ikameglobal.github.io/google-ads-report/index.html.svg?label=docs&down_message=unavailable&up_message=available)](https://ikameglobal.github.io/google-ads-report)
+[![develop](https://github.com/ikameglobal/google-ads-report/actions/workflows/dev.yml/badge.svg)](https://github.com/ikameglobal/google-ads-report/actions/workflows/dev.yml)
+[![main](https://github.com/ikameglobal/google-ads-report/actions/workflows/release.yml/badge.svg)](https://github.com/ikameglobal/google-ads-report/actions/workflows/release.yml)
 
-1. Create a new repository on GitHub using this template
-2. Add write permissions to workflow
+Easier to use
+
+## Features
+
+* Something
+* Something else

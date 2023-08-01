@@ -1,1 +1,1 @@
-::: <package-name-underscore>.example
+::: google_ads_report.example

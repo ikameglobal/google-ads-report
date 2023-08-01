@@ -1,10 +1,10 @@
 [tool]
 [tool.poetry]
-name = "<package-name>"
+name = "google-ads-report"
 version = "0.1.0"
-homepage = "https://github.com/<github-username>/<package-name>"
-description = "<description>"
-authors = ["<github-username> <<email>>"]
+homepage = "https://github.com/ikameglobal/google-ads-report"
+description = "Easier to use"
+authors = ["ikameglobal <minhpc@ikameglobal.com>"]
 readme = "README.md"
 license = "MIT"
 classifiers = [
@@ -15,7 +15,7 @@ classifiers = [
     'Programming Language :: Python :: 3.10',
 ]
 packages = [
-    { include = "<package-name-underscore>" },
+    { include = "google_ads_report" },
     { include = "tests", format = "sdist" },
 ]
 

@@ -6,7 +6,7 @@ the [Reporting API](https://google.com).
 ## Get report
 
 ```python
-from <package-name-underscore> import SampleClass
+from google_ads_report import SampleClass
 
 report = SampleClass(api_key="your_api_key")
 result = report.get_report()
