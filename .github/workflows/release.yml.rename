@@ -1,0 +1,90 @@
+# Publish package on release branch if it's tagged with 'v*'
+
+name: build & release
+
+on:
+    push:
+        branch: [ main ]
+        tags:
+            - 'v*'
+
+    workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    release:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                python-versions: [ '3.10' ]
+
+        # map step outputs to job outputs so they can be share among jobs
+        outputs:
+            package_version: ${{ steps.variables_step.outputs.package_version }}
+            package_name: ${{ steps.variables_step.outputs.package_name }}
+            repo_name: ${{ steps.variables_step.outputs.repo_name }}
+            repo_owner: ${{ steps.variables_step.outputs.repo_owner }}
+
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            -   uses: actions/checkout@v3
+
+            -   name: build change log
+                id: build_changelog
+                uses: mikepenz/release-changelog-builder-action@v3.7.2
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   uses: actions/setup-python@v4
+                with:
+                    python-version: ${{ matrix.python-versions }}
+
+            -   name: Install dependencies
+                run: |
+                    python -m pip install --upgrade pip
+                    pip install tox-gh-actions poetry
+
+                # declare package_version, repo_owner, repo_name, package_name so you may use it in web hooks.
+            -   name: Declare variables for convenient use
+                id: variables_step
+                run: |
+                    echo "::set-output name=repo_owner::${GITHUB_REPOSITORY%/*}"
+                    echo "::set-output name=repo_name::${GITHUB_REPOSITORY#*/}"
+                    echo "::set-output name=package_name::`poetry version | awk '{print $1}'`"
+                    echo "::set-output name=package_version::`poetry version --short`"
+                shell: bash
+
+            -   name: publish documentation
+                run: |
+                    poetry install -E doc
+                    poetry run mkdocs build
+                    git config --global user.name <github-username>
+                    git config --global user.email <email>
+                    poetry run mkdocs gh-deploy --force
+
+
+            -   name: Build wheels and source tarball
+                run: |
+                    poetry lock
+                    poetry build
+
+            -   name: Create Release
+                id: create_release
+                uses: actions/create-release@v1
+                env:
+                    GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+                with:
+                    tag_name: ${{ github.ref_name }}
+                    release_name: ${{ github.ref_name }}
+                    body: ${{ steps.build_changelog.outputs.changelog }}
+                    draft: false
+                    prerelease: false
+
+            -   name: publish to PYPI
+                uses: pypa/gh-action-pypi-publish@release/v1
+                with:
+                    user: __token__
+                    password: ${{ secrets.PYPI_API_TOKEN }}
+                    skip_existing: true

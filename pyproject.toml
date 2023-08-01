@@ -1,0 +1,99 @@
+[tool]
+[tool.poetry]
+name = "<package-name>"
+version = "0.1.0"
+homepage = "https://github.com/<github-username>/<package-name>"
+description = "<description>"
+authors = ["<github-username> <<email>>"]
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3.10',
+]
+packages = [
+    { include = "<package-name-underscore>" },
+    { include = "tests", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.12"
+
+black = { version = "^23.3.0", optional = true }
+isort = { version = "5.12.0", optional = true }
+flake8 = { version = "6.0.0", optional = true }
+flake8-docstrings = { version = "^1.6.0", optional = true }
+pytest = { version = "^7.0.1", optional = true }
+pytest-cov = { version = "^4.0.0", optional = true }
+tox = { version = "^4.5.1", optional = true }
+virtualenv = { version = "^20.23.0", optional = true }
+pip = { version = "^23.1.2", optional = true }
+mkdocs = { version = "^1.4.3", optional = true }
+mkdocs-include-markdown-plugin = { version = "^4.0.4", optional = true }
+mkdocs-material = { version = "^9.1.14", optional = true }
+mkdocstrings-python = { version = "^1.0.0", optional = true }
+mkdocs-material-extensions = { version = "^1.0.3", optional = true }
+twine = { version = "^4.0.2", optional = true }
+mkdocs-autorefs = { version = "^0.4.1", optional = true }
+pre-commit = { version = "^3.3.2", optional = true }
+toml = { version = "^0.10.2", optional = true }
+livereload = { version = "^2.6.3", optional = true }
+pyreadline = { version = "^2.1", optional = true }
+mike = { version = "^1.1.2", optional = true }
+requests = { version = "^2.31.0", optional = true }
+
+[tool.poetry.extras]
+test = [
+    "pytest",
+    "black",
+    "isort",
+    "flake8",
+    "flake8-docstrings",
+    "pytest-cov",
+    "requests"
+]
+
+dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml"]
+
+doc = [
+    "mkdocs",
+    "mkdocs-include-markdown-plugin",
+    "mkdocs-material",
+    "mkdocstrings-python",
+    "mkdocs-material-extensions",
+    "mkdocs-autorefs",
+    "mike"
+]
+
+
+
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "^67.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 121
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+[tool.isort]
+profile = "black"
