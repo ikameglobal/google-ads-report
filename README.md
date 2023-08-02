@@ -9,5 +9,5 @@ Easier to use
 
 ## Features
 
-* Something
+* Get report from Google Ads API in Stream
 * Something else
