@@ -1,1 +1,1 @@
-::: google_ads_report.example
+::: google_ads_report.api_client
