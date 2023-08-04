@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Dict, List, Optional, Set, Sequence
+from typing import Any, Dict, List, Optional, Set, Sequence, Iterator
 from dataclasses import dataclass
 
 import json
@@ -40,8 +40,8 @@ class BaseClient:
         self.api_version = version
         self.google_ads_row = self._get_google_ads_row(version)
 
-    def get_response(self, entity_id: str, query_text: str):
-        pass
+    def get_response_batch(self, customer_id: str, query: str) -> Iterator[dict]:
+        ...
 
     def _get_google_ads_row(self, api_version: str) -> "GoogleAdsRow":
         base_module = f"google.ads.googleads.{api_version}"
