@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "google-ads-report"
-version = "0.2.0"
+version = "0.2.1"
 homepage = "https://github.com/ikameglobal/google-ads-report"
 description = "Easier to use"
 authors = ["ikameglobal <minhpc@ikameglobal.com>"]
