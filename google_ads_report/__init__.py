@@ -1,2 +1,2 @@
 """Top-level package for this lib."""
-from .api_client import GoogleAdsApiClient
+from .google_ads_client import GoogleAdsApiClient
