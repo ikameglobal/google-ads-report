@@ -52,3 +52,23 @@ class GoogleAdsApiClient(BaseClient):
                 row = json_format.MessageToDict(row)
                 batch_result.append(row)
             yield batch_result
+
+    def get_response(self, customer_id: str, query: str) -> list:
+        """
+        Returns a list of results from the Google Ads API.
+
+        Args:
+            customer_id: The Google Ads customer ID.
+            query: The query to run against the Google Ads API.
+
+        Returns:
+            A list of results from the Google Ads API.
+        """
+        stream = self.ads_service.search_stream(customer_id=customer_id,
+                                                query=query)
+        result = []
+        for batch in stream:
+            for row in batch.results:
+                row = json_format.MessageToDict(row)
+                result.append(row)
+        return result
