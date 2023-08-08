@@ -7,14 +7,27 @@ from .base_client import BaseClient
 
 
 class GoogleAdsApiClient(BaseClient):
-    def __init__(self, credentials_path: str = None, version: str = "v14"):
+    def __init__(self, credentials: dict = None, credentials_path: str = None, version: str = "v14"):
+        """
+        Args:
+            credentials: A dictionary of credentials for the Google Ads API.
+            credentials_path: The path to a JSON file containing credentials for the Google Ads API.
+            version: The version of the Google Ads API to use.
+
+        Returns:
+            An instance of the GoogleAdsApiClient class.
+
+        Author:
+            minhpc@ikameglobal.com
+        """
         super().__init__(version)
 
-        if not credentials_path:
-            raise ValueError("Specify the path to your googleads_credentials.json file")
+        if not credentials_path and not credentials:
+            raise ValueError("Either credentials or credentials_path must be provided.")
 
-        with open(credentials_path, 'r') as f:
-            credentials = json.load(f)
+        if not credentials:
+            with open(credentials_path, 'r') as f:
+                credentials = json.load(f)
 
         self.client = GoogleAdsClient.load_from_dict(credentials, version)
         self.ads_service = self.client.get_service("GoogleAdsService")
